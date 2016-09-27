@@ -10,6 +10,7 @@ namespace AardsMooi
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/lightbox.js",
                         "~/Scripts/aardsmooi.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -29,6 +30,7 @@ namespace AardsMooi
                       "~/Content/site.css",
                       "~/Content/aardsmooi.css",
                       "~/Content/navbar.css",
+                       "~/Content/lightbox.css",
                        "~/Content/font-awesome.css"));
         }
     }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AardsMooi.DAO;
+using AardsMooi.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +10,16 @@ namespace AardsMooi.Controllers
 {
     public class HomeController : Controller
     {
+        private AMdbDataContext db = new AMdbDataContext();
+        private Dao_Categorie daoCat = new Dao_Categorie();
         public ActionResult Index()
         {
-            return View();
+            IndexViewModel vm = new IndexViewModel();
+            vm.Welkom = db.SP_GetPageByPageId(1).Single();
+            vm.Behandelingen = db.SP_GetPageByPageId(2).Single();
+            vm.Cadeaubon = db.SP_GetPageByPageId(3).Single();
+            vm.ListCategories = daoCat.GetAllCategories().ToList();
+            return View(vm);
         }
 
         public ActionResult About()

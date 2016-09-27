@@ -1,65 +1,95 @@
-﻿@{
+﻿
+@model AardsMooi.ViewModels.IndexViewModel
+
+@{
     ViewBag.Title = "Home Page";
 }
 <div class="section fullHeight">
     <div class="container">
-        
+
     </div>
 </div>
-<div  id="welkom" class="section fullHeight">
+<div id="welkom" class="section">
     <div class="container">
-        <h1>Aardsmooi</h1>
+        <div class="row">
+            <div class="col-xs-12"><h1>@Model.Welkom.Titel</h1></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12"><p>@Model.Welkom.Tekst</p></div>
+        </div>
+        <div class="row space">
+            <div class="col-xs-6 col-md-3"><a href="~/Photos/AardsMooi_Interieur01.jpg" data-lightbox="AardsMooi"><img src="~/Photos/AardsMooi_Interieur01.jpg" class="img-responsive photoNormal" alt="Foto 01 - interieur aardsmooi"></a></div>
+            <div class="col-xs-6 col-md-3"><a href="~/Photos/AardsMooi_Interieur02.jpg" data-lightbox="AardsMooi"><img src="~/Photos/AardsMooi_Interieur02.jpg" class="img-responsive photoNormal" alt="Foto 02 - interieur aardsmooi"></a></div>
+            <div class="col-xs-6 col-md-3"><a href="~/Photos/AardsMooi_Interieur03.jpg" data-lightbox="AardsMooi"><img src="~/Photos/AardsMooi_Interieur03.jpg" class="img-responsive photoNormal" alt="Foto 03 - interieur aardsmooi"></a></div>
+            <div class="col-xs-6 col-md-3"><a href="~/Photos/AardsMooi_Interieur04.jpg" data-lightbox="AardsMooi"><img src="~/Photos/AardsMooi_Interieur04.jpg" class="img-responsive photoNormal" alt="Foto 04 - interieur aardsmooi"></a></div>
+        </div>
+
     </div>
 </div>
-<div id="behandelingen" class="section fullHeight sColor">
+<div id="behandelingen" class="section">
     <div class="container">
-        <h1>Behandelingen</h1>
+        <div class="row">
+            <div class="col-xs-12"><h1>@Model.Behandelingen.Titel</h1></div>
+        </div>
+        <div class="row">
+
+        </div>
+        <div class="">
+            <div class="row">
+                @foreach (var cat in Model.ListCategories)
+            {
+                    <div class="col-xs-12 col-md-4"><p><h2>@cat.Naam</h2></p></div>
+                }
+            </div>
+            @foreach (var cat in Model.ListCategories)
+            {
+                <div class="fadeColom" id="@cat.Naam">
+                    @foreach (var srt in cat.Soorts)
+                    {
+                        <p>@srt.Naam</p>
+                        <ul>
+                            @foreach (var beh in srt.Behandelings)
+                            {
+                                <li>@beh.Naam - @beh.Prijs</li>
+                            }
+                        </ul>
+                    }
+                </div>
+            }
+
+        </div>
     </div>
 </div>
 <div id="cadeaubon" class="section fullHeight">
     <div class="container">
-        <h1>Cadeaubon</h1>
+        <div class="row">
+            <div class="col-xs-12"><h1>@Model.Cadeaubon.Titel</h1></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12"><p>@Model.Cadeaubon.Tekst</p></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <img src="~/Photos/Aardsmooi_Cadeaubon.jpg" class="img-responsive photoRound" alt="Cadeaubon">
+            </div>
+        </div>
     </div>
 </div>
 
-<div id="contact" class="section fullHeight sColor">
+<div id="contact" class="section">
     <div class="container">
-        <h1>Contact</h1>
-        <row>
+        <div class="row">
+            <div class="col-xs-12"><h1>Contact</h1></div>
+        </div>
+        <div class="row">
             <div class="col-xs-12" id="contact-div">
-                @*<table>
-                    <tr>
-                        <th>
-                            <i class="fa fa-map-marker fa-lg"></i>
-                        </th>
-                        <th>Otterstraat 11, 2440 Geel</th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <i class="fa fa-phone fa-lg"></i>
-                        </th>
-                        <th><a href="tel:0497103676"><span class="text"> 0497/10.36.76</span></a></th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <i class="fa fa-envelope-o  fa-lg"></i>
-                        </th>
-                        <th><a href="mailto:info@aardsmooi.be"><span class="text"> info@aardsmooi.be</span></a></th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <i class="fa fa-facebook fa-lg"></i>
-                        </th>
-                        <th><a href="http://www.facebook.com/aardsmooi/"><span class="text"> facebook/aardsmooi</span></a></th>
-                    </tr>
-                </table>*@
                 <span class="txtAddress"><b>Aardsmooi</b></span><br />
                 <i class="fa fa-map-marker fa-lg"></i><span class="txtAddress"> Otterstraat 11, 2440 Geel</span><br />
                 <i class="fa fa-phone fa-lg"></i><a href="tel:0497103676"><span class="txtAddress"> 0497/10.36.76</span></a><br />
                 <i class="fa fa-envelope-o  fa-lg"></i><a href="mailto:info@aardsmooi.be"><span class="txtAddress"> info@aardsmooi.be</span></a><br />
                 <i class="fa fa-facebook fa-lg"></i><a href="http://www.facebook.com/aardsmooi/"><span class="txtAddress"> facebook/aardsmooi</span></a><br />
             </div>
-        </row>
+        </div>
         <row>
             <div id="social-media">
                 <div class="fb-like" data-href="https://facebook.com/aardsmooi" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="false"></div>
