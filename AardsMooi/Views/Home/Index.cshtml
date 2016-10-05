@@ -4,9 +4,26 @@
 @{
     ViewBag.Title = "Home Page";
 }
-<div class="section fullHeight">
+<div class="section">
     <div class="container">
-
+        <div class="row">
+            <div class="flexslider">
+                <ul class="slides">
+                    <li>
+                        <img src="~/PhotoBanner/banner01.jpg" />
+                    </li>
+                    <li>
+                        <img src="~/PhotoBanner/banner02.jpg" />
+                    </li>
+                    <li>
+                        <img src="~/PhotoBanner/banner03.jpg" />
+                    </li>
+                    <li>
+                        <img src="~/PhotoBanner/banner04.jpg" />
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 <div id="welkom" class="section">
@@ -23,7 +40,9 @@
             <div class="col-xs-6 col-md-3"><a href="~/Photos/AardsMooi_Interieur03.jpg" data-lightbox="AardsMooi"><img src="~/Photos/AardsMooi_Interieur03.jpg" class="img-responsive photoNormal" alt="Foto 03 - interieur aardsmooi"></a></div>
             <div class="col-xs-6 col-md-3"><a href="~/Photos/AardsMooi_Interieur04.jpg" data-lightbox="AardsMooi"><img src="~/Photos/AardsMooi_Interieur04.jpg" class="img-responsive photoNormal" alt="Foto 04 - interieur aardsmooi"></a></div>
         </div>
-
+        <div class="row">
+            <img class="img-responsive line" src="~/images/line.png" />
+        </div>
     </div>
 </div>
 <div id="behandelingen" class="section">
@@ -32,35 +51,85 @@
             <div class="col-xs-12"><h1>@Model.Behandelingen.Titel</h1></div>
         </div>
         <div class="row">
-
-        </div>
-        <div class="">
-            <div class="row">
-                @foreach (var cat in Model.ListCategories)
-            {
-                    <div class="col-xs-12 col-md-4"><p><h2>@cat.Naam</h2></p></div>
-                }
-            </div>
             @foreach (var cat in Model.ListCategories)
             {
-                <div class="fadeColom" id="@cat.Naam">
-                    @foreach (var srt in cat.Soorts)
-                    {
-                        <p>@srt.Naam</p>
-                        <ul>
-                            @foreach (var beh in srt.Behandelings)
-                            {
-                                <li>@beh.Naam - @beh.Prijs</li>
-                            }
-                        </ul>
-                    }
-                </div>
+                <div class="col-xs-12 col-md-4"><p><h2 class="fakePointer" id="@(@cat.Afkorting + "_btn")">@cat.Naam</h2></p></div>
             }
-
         </div>
+        @foreach (var cat in Model.ListCategories)
+        {
+            <div id="@(cat.Afkorting + "_div")">
+                @foreach (var srt in cat.Soorts)
+                {
+                    <div class="row">
+                        <h3 class=""><i class="fa fa-chevron-right" aria-hidden="true"></i> @srt.Naam</h3>
+                        <h4>@srt.Beschrijving</h4>
+                    </div>
+                    <table class="table table-borderless">
+                        <tr>
+                            <th>Beschrijving</th>
+                            <th>Duur</th>
+                            <th>Prijs</th>
+                            <th>Info</th>
+                        </tr>
+                        @foreach (var beh in srt.Behandelings)
+                        {
+                            <tr>
+                                <td>@beh.Naam</td>
+                                <td>@beh.DuurMinuten</td>
+                                <td><i class="fa fa-eur" aria-hidden="true"></i> @beh.Prijs</td>
+                                <td>
+                                    @if (beh.ExtraBeschrijvings.Count == 0)
+                                    {
+                                        <i class="fa fa-times font-Red" aria-hidden="true"></i>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" data-toggle="modal" data-target=@("#PopUp" + @beh.Id)><i class="fa fa-info font-Green" aria-hidden="true"></i></a>
+                                    }
+                                </td>
+                            </tr>
+
+                        }
+                    </table>
+                    foreach (var behand in srt.Behandelings)
+                    {
+                        foreach (var beschrijving in behand.ExtraBeschrijvings)
+                        {
+                                    <!-- BEGIN Modal -->
+                            <div class="modal fade" id=@("PopUp" + @beschrijving.IdBehandeling) role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">@beschrijving.Behandeling.Naam</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>@beschrijving.Beschrijving</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                                    <!-- END Modal -->
+                        }
+                    }
+                }
+            </div>
+        }
+        <div class="row">
+            <img class="img-responsive line" src="~/images/line.png" />
+        </div>
+
     </div>
+    
 </div>
-<div id="cadeaubon" class="section fullHeight">
+<div id="cadeaubon" class="section">
     <div class="container">
         <div class="row">
             <div class="col-xs-12"><h1>@Model.Cadeaubon.Titel</h1></div>
@@ -73,6 +142,9 @@
                 <img src="~/Photos/Aardsmooi_Cadeaubon.jpg" class="img-responsive photoRound" alt="Cadeaubon">
             </div>
         </div>
+        <div class="row">
+            <img class="img-responsive line" src="~/images/line.png" />
+        </div>
     </div>
 </div>
 
@@ -83,11 +155,11 @@
         </div>
         <div class="row">
             <div class="col-xs-12" id="contact-div">
-                <span class="txtAddress"><b>Aardsmooi</b></span><br />
-                <i class="fa fa-map-marker fa-lg"></i><span class="txtAddress"> Otterstraat 11, 2440 Geel</span><br />
-                <i class="fa fa-phone fa-lg"></i><a href="tel:0497103676"><span class="txtAddress"> 0497/10.36.76</span></a><br />
-                <i class="fa fa-envelope-o  fa-lg"></i><a href="mailto:info@aardsmooi.be"><span class="txtAddress"> info@aardsmooi.be</span></a><br />
-                <i class="fa fa-facebook fa-lg"></i><a href="http://www.facebook.com/aardsmooi/"><span class="txtAddress"> facebook/aardsmooi</span></a><br />
+                <b id="contactTitle">Aardsmooi</b><br />
+                    <i class="fa fa-map-marker fa-lg"></i><a href="https://www.google.be/maps/place/Otterstraat+11,+2440+Geel/&#6451.2065242,4.9734981,15.46z/data=!4m5!3m4!1s0x47c14b7c66b68887:0x111d46da13838020!8m2!3d51.2067774!4d4.980579"><span class="lblAdr"> Otterstraat 11, 2440 Geel</span></a><br />
+                    <i class="fa fa-phone fa-lg"></i><a href="tel:0497103676"><span class="lblAdr"> 0497/10.36.76</span></a><br />
+                    <i class="fa fa-envelope-o  fa-lg"></i><a href="mailto:info@aardsmooi.be"><span class="lblAdr"> info@aardsmooi.be</span></a><br />
+                    <i class="fa fa-facebook fa-lg"></i><a href="http://www.facebook.com/aardsmooi/"><span class="lblAdr"> facebook/aardsmooi</span></a><br />
             </div>
         </div>
         <row>
@@ -96,7 +168,9 @@
 
             </div>
         </row>
+        <div class="row">
+            <img class="img-responsive line" src="~/images/line.png" />
+        </div>
     </div>
 </div>
-
 

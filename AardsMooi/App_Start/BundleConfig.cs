@@ -11,6 +11,7 @@ namespace AardsMooi
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/lightbox.js",
+                        "~/Scripts/jquery.flexslider.js",
                         "~/Scripts/aardsmooi.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -31,6 +32,7 @@ namespace AardsMooi
                       "~/Content/aardsmooi.css",
                       "~/Content/navbar.css",
                        "~/Content/lightbox.css",
+                       "~/Content/flexslider.css",
                        "~/Content/font-awesome.css"));
         }
     }
